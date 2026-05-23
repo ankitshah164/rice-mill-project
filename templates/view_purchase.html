@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Purchase History</title>
+</head>
+<body>
+
+<h2>📦 Purchase History</h2>
+<form method="GET">
+
+    <input type="text"
+           name="search"
+           placeholder="Search farmer name"
+           value="{{ search }}">
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+<br>
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>ID</th>
+        <th>Farmer Name</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+
+    {% for row in data %}
+    <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td>{{ row[3] }}</td>
+        <td>{{ row[4] }}</td>
+        <td>
+            <a href="/edit_purchase/{{ row[0] }}"
+   class="btn btn-primary btn-sm">
+   Edit
+    {% if session['role']=="admin" %}
+
+<a href="/delete_purchase/{{ row[0] }}"
+   class="btn btn-danger btn-sm">
+
+Delete
+
+</a>
+
+{% endif %}
+       <td>
+
+   
+</td>
+       
+</a>
+    </a>
+</td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+<br>
+<a href="/">⬅ Back to Home</a>
+
+</body>
+</html>

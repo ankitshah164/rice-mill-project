@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sales History</title>
+</head>
+<body>
+
+<h2>🛒 Sales History</h2>
+
+<table border="1" cellpadding="10">
+
+    <tr>
+        <th>ID</th>
+        <th>Customer Name</th>
+        <th>Rice Type</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Date</th>
+        <th>Invoice</th>
+    </tr>
+    
+
+
+    {% for row in data %}
+    <tr>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td>{{ row[3] }}</td>
+        <td>{{ row[4] }}</td>
+        <td>{{ row[5] }}</td>
+        <td>
+    <a href="/invoice/{{ row[0] }}"
+       class="btn btn-success btn-sm">
+       Invoice
+    </a>
+    <a href="/export_sales"
+   class="btn btn-dark mb-3">
+
+   Export Excel
+
+</a>
+</td>
+    </tr>
+    {% endfor %}
+   
+    
+</table>
+
+<br>
+<a href="/">⬅ Back to Home</a>
+
+</body>
+</html>

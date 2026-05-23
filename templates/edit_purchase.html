@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Purchase</title>
+</head>
+<body>
+
+<h2>Edit Purchase</h2>
+
+<form method="POST">
+
+    Name:<br>
+    <input type="text"
+           name="farmer_name"
+           value="{{ data[1] }}"><br><br>
+
+    Quantity:<br>
+    <input type="number"
+           name="quantity"
+           value="{{ data[2] }}"><br><br>
+
+    Price:<br>
+    <input type="number"
+           name="price"
+           value="{{ data[3] }}"><br><br>
+
+    Date:<br>
+    <input type="date"
+           name="date"
+           value="{{ data[4] }}"><br><br>
+
+    <button type="submit">
+        Update
+    </button>
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Stock</title>
+</head>
+<body>
+
+<h2>📦 Stock Details</h2>
+
+{% for alert in alerts %}
+
+<div class="alert alert-danger">
+
+⚠️ {{ alert }}
+
+</div>
+
+{% endfor %}
+
+
+<table border="1">
+
+<tr>
+    <th>ID</th>
+    <th>Rice Type</th>
+    <th>Quantity</th>
+</tr>
+
+{% for row in data %}
+<tr>
+
+    <td>{{ row[0] }}</td>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+
+</tr>
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/">⬅ Back to Home</a>
+
+</body>
+</html>
