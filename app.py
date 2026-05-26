@@ -16,6 +16,15 @@ import sqlite3
 def init_db():
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
+    #for new user
+    cur.execute('''
+CREATE TABLE IF NOT EXISTS users(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    password TEXT,
+    role TEXT
+)
+''')
 
     # Purchase Table
     cur.execute('''
@@ -74,30 +83,34 @@ app.secret_key = 'rice_mill_secret'
 # =========================
 # LOGIN ROUTE
 # =========================
-
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET','POST'])
 def login():
-
 
     if request.method == 'POST':
 
         username = request.form['username']
         password = request.form['password']
 
-        if username == 'admin' and password == '1234':
+        conn = sqlite3.connect('database.db')
+        cur = conn.cursor()
 
-            session['user'] = username
-            session['role'] = 'admin'
+        cur.execute(
+            "SELECT * FROM users WHERE username=? AND password=?",
+            (username,password)
+        )
 
-        elif username == 'staff' and password == '1234':
+        user = cur.fetchone()
 
-            session['user'] = username
-            session['role'] = 'staff'
+        conn.close()
 
-        else:
-            return "Invalid username or password"
+        if user:
 
-        return redirect('/')
+            session['user']=user[1]
+            session['role']=user[3]
+
+            return redirect('/')
+
+        return "Invalid username/password"
 
     return render_template('login.html')
 # =========================
@@ -523,6 +536,30 @@ def send_report():
     mail.send(msg)
 
     return "Email Sent Successfully"
+#for new register
+@app.route('/register', methods=['GET','POST'])
+def register():
+
+    if request.method == 'POST':
+
+        username=request.form['username']
+        password=request.form['password']
+        role=request.form['role']
+
+        conn=sqlite3.connect('database.db')
+        cur=conn.cursor()
+
+        cur.execute(
+            "INSERT INTO users(username,password,role) VALUES(?,?,?)",
+            (username,password,role)
+        )
+
+        conn.commit()
+        conn.close()
+
+        return redirect('/login')
+
+    return render_template('register.html')
 
 
 # =========================
